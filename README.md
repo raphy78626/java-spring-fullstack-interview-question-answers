@@ -789,12 +789,59 @@ http://www.globalguideline.com/interview_questions/Questions.php?sc=MongoDB
 *  What is the difference between UNION and UNION ALL?    	
 *  How to select first 5 records from a table?    	
 *  Describe the difference between truncate and delete    	
-*  What are the difference between clustered and a non-clustered index?    	
+*  What are the difference between clustered and a non-clustered index?   
+
+In a database management system, indexes are used to improve the performance of querying data. An index is an ordered set of values from one or more columns of a table. There are two main types of indexes: clustered and non-clustered.
+
+Clustered Index:
+A clustered index determines the physical order of data in a table, i.e., it defines the order in which the data is stored on disk. In a clustered index, the data is stored in a B-tree structure based on the indexed column(s), which means that the data rows are physically sorted in the order of the index keys. A table can have only one clustered index, and it is created on the primary key column by default. However, a clustered index can also be created on any other column that has a unique constraint defined on it.
+
+For example, let's consider a table "Employee" with columns "Emp_Id", "Emp_Name", "Emp_Salary", and "Emp_Dept". If we create a clustered index on the "Emp_Id" column, the data in the table will be stored in the order of the Emp_Id column. This can improve the performance of queries that retrieve data based on the Emp_Id column.
+
+Non-Clustered Index:
+A non-clustered index is a separate structure from the data stored in a table. It stores the indexed column values and a pointer to the corresponding data rows in the table. Non-clustered indexes are typically used for columns that are frequently used in queries but are not unique or have no primary key constraint.
+
+For example, consider the same "Employee" table mentioned above. If we create a non-clustered index on the "Emp_Name" column, the index will store the "Emp_Name" values in sorted order and a pointer to the corresponding data rows in the table. This index can improve the performance of queries that retrieve data based on the "Emp_Name" column.
+
+When to use:
+Clustered indexes are best used on columns that are frequently used in range queries, such as dates or sequential numbers. They are also useful when the table is frequently queried using the primary key column(s). Non-clustered indexes are useful when queries involve multiple columns or when there is a need to retrieve data quickly based on non-primary key columns. It's important to note that adding too many indexes to a table can also slow down the performance of the database system, so it's best to use indexes judiciously and only where necessary.
+
 *  What are the advantages of using Stored Procedures?    	
 *  What is Denormalization?    	
 *  Define ACID Properties    	
 *  What is a cursor how does it work?    	
-*  What is collation?    	
+*  What is collation?   
+  Collation is a set of rules that defines how data is sorted and compared in a database. It specifies the character set and sorting order for the data in a table column. The collation rules are applied when searching, sorting, and comparing data in the database.
+
+For example, consider a table in a database that stores names of people from different countries. The database may use different collations for different columns or even different rows within a column, depending on the requirements. Suppose we have two columns, one for the first name and the other for the last name of a person. The first name column may use a case-insensitive collation, while the last name column may use a case-sensitive collation.
+
+Here is an example of how collation can affect data sorting in a database:
+
+Suppose we have a table named "employees" with a "name" column that contains the following values:
+- John
+- Íñigo
+- Ali
+- Zoe
+
+If we use a binary collation, the data will be sorted as follows:
+- Ali
+- John
+- Zoe
+- Íñigo
+
+If we use a case-insensitive collation, the data will be sorted as follows:
+- Ali
+- John
+- Íñigo
+- Zoe
+
+If we use a collation that takes into account diacritics (accents), the data will be sorted as follows:
+- Ali
+- Íñigo
+- John
+- Zoe
+
+Collation is an important consideration when designing a database schema, especially when dealing with multi-lingual data. It is essential to choose a collation that can handle the character set and sorting order required by the application.
 *  What are row constructors?    	
 *  Is table size reduced, when you delete data from the table?    	
 *  What is the difference between “INNER JOIN” and “OUTER JOIN”?    	
